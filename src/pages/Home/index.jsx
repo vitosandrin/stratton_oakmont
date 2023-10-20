@@ -84,9 +84,6 @@ export const Home = () => {
 
   return (
     <Wrapper>
-      <Menu>
-        <Logo src={logo} alt="logo" />
-      </Menu>
       {renderCarousel()}
       <ContainerSearch>
         <Title>Procure uma Crypto</Title>

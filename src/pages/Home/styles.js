@@ -90,11 +90,7 @@ export const ImageButton = styled.image`
 `;
 
 export const Menu = styled.header`
-    display: flex;
-    flex-direction: row;
     justify-content: center;
-    margin-right: auto;
-    margin-left: auto;
 
     padding: 5px;
     height: 120px;
