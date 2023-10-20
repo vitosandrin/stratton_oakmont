@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/api";
 
-import logo from "../../assets/images/logo.png";
 import {
   Wrapper,
-  Menu,
   Search,
   Title,
-  Logo,
   ContainerSearch,
-  CoinName,
-  CoinValue,
-  CoinVolume,
-  CoinPercent,
-  CoinMktCap,
-  CoinContainerInfo,
   ContainerCarousel,
   WrapperCarousel,
 } from "./styles";
