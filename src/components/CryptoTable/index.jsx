@@ -1,6 +1,8 @@
 import React from "react";
 import { TableStyles } from "./styles";
 const CryptoTable = ({ data }) => {
+
+    console.log(data)
   return (
     <TableStyles>
       <thead>
@@ -24,10 +26,9 @@ const CryptoTable = ({ data }) => {
             <td>{coin.symbol}</td>
             <td>{coin.name}</td>
             <td>{coin.price}</td>
-            <td>{coin.marketcap}</td>
-            <td>{coin.volume}</td>
-
-            <td>{coin.priceChange}%</td>
+            <td>{coin.market_cap.toFixed}</td>
+            <td>{coin.total_volume}</td>
+            <td>{coin.price_change_percentage_24h}%</td>
           </tr>
         ))}
       </tbody>
