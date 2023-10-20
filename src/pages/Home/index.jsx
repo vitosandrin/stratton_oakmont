@@ -25,9 +25,9 @@ import { setCryptos } from "../../redux/actions/cryptoActions";
 export const Home = () => {
   const [search, setSearch] = useState("");
   const [modalOpened, setModalOpened] = useState(false);
-  const { crypto, cryptoSelected } = useSelector((state) => state.crypto);
+  const { cryptos, cryptoSelected } = useSelector((state) => state.crypto);
   const dispatch = useDispatch();
-  const hasCoins = crypto.length > 0;
+  const hasCoins = cryptos.length > 0;
 
   const fetchCrypto = async () => {
     const result = await api.get(
@@ -44,9 +44,7 @@ export const Home = () => {
     setSearch(e.target.value);
   };
 
-  const renderCoins = crypto.map((coin) => coin);
-
-  const filteredCoins = crypto.filter((coin) =>
+  const filteredCoins = cryptos.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -61,13 +59,12 @@ export const Home = () => {
       </CoinContainerInfo>
     );
   };
-
   const renderCarousel = () => {
     if (hasCoins) {
       return (
         <WrapperCarousel>
           <ContainerCarousel>
-            {renderCoins.map((coin) => {
+            {cryptos.map((coin) => (
               <Carousel
                 onClick={() => {
                   setModalOpened(true);
@@ -77,8 +74,8 @@ export const Home = () => {
                 image={coin.image}
                 symbol={coin.symbol}
                 priceChange={coin.price_change_percentage_24h}
-              />;
-            })}
+              />
+            ))}
           </ContainerCarousel>
         </WrapperCarousel>
       );
@@ -117,7 +114,7 @@ export const Home = () => {
         );
       })}
       <Modal open={modalOpened} onClose={() => setModalOpened(false)}>
-        {renderCoins.map((coin) => {
+        {cryptos.map((coin) => {
           return <p>{coin.name}</p>;
         })}
       </Modal>
