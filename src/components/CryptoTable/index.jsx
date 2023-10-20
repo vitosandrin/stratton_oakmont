@@ -9,12 +9,11 @@ const CryptoTable = ({ data }) => {
         <tr>
           <th></th>
           <th>Símbolo</th>
-
           <th>Nome</th>
           <th>Preço</th>
           <th>Market Cap</th>
           <th>Volume</th>
-          <th>Variação de Preço (24h)</th>
+          <th>Variação de Preço (24h) %</th>
         </tr>
       </thead>
       <tbody>
@@ -25,10 +24,10 @@ const CryptoTable = ({ data }) => {
             </td>
             <td>{coin.symbol}</td>
             <td>{coin.name}</td>
-            <td>{coin.price}</td>
+            <td>U${coin.current_price}</td>
             <td>{coin.market_cap.toFixed}</td>
             <td>{coin.total_volume}</td>
-            <td>{coin.price_change_percentage_24h}%</td>
+            <td>{coin.price_change_percentage_24h.toFixed(2)}%</td>
           </tr>
         ))}
       </tbody>
