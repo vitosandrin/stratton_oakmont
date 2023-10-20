@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import React, { useState, useEffect } from "react";
+import api from "../../services/api";
 
-import logo from '../../assets/images/logo.png'
+import logo from "../../assets/images/logo.png";
 import {
   Wrapper,
   Menu,
@@ -16,32 +16,37 @@ import {
   CoinMktCap,
   CoinContainerInfo,
   ContainerCarousel,
-  WrapperCarousel
-} from './styles';
-import { Carousel, Loader, Modal, Coin } from '../../components';
+  WrapperCarousel,
+} from "./styles";
+import { Carousel, Loader, Modal, Coin } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { setCryptos } from "../../redux/actions/cryptoActions";
 
 export const Home = () => {
-
-  const [coins, setCoins] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [modalOpened, setModalOpened] = useState(false);
-  const hasCoins = coins.length > 0;
+  const { crypto, cryptoSelected } = useSelector((state) => state.crypto);
+  const dispatch = useDispatch();
+  const hasCoins = crypto.length > 0;
+
+  const fetchCrypto = async () => {
+    const result = await api.get(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
+    );
+    dispatch(setCryptos(result.data));
+  };
 
   useEffect(() => {
-    api.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
-      .then(res => {
-        setCoins(res.data);
-      }).catch(error => console.log(error))
-
+    fetchCrypto();
   }, []);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-  }
+  };
 
-  const renderCoins = coins.map(coin => coin)
+  const renderCoins = crypto.map((coin) => coin);
 
-  const filteredCoins = coins.filter(coin =>
+  const filteredCoins = crypto.filter((coin) =>
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -54,43 +59,41 @@ export const Home = () => {
         <CoinPercent>%24h</CoinPercent>
         <CoinMktCap>Market Cap</CoinMktCap>
       </CoinContainerInfo>
-    )
-  }
+    );
+  };
 
   const renderCarousel = () => {
     if (hasCoins) {
       return (
         <WrapperCarousel>
           <ContainerCarousel>
-            {renderCoins.map(coin => {
-              return (
-                <Carousel
-                  onClick={() => {
-                    setModalOpened(true);
-                  }}
-                  key={coin.id}
-                  name={coin.name}
-                  image={coin.image}
-                  symbol={coin.symbol}
-                  priceChange={coin.price_change_percentage_24h}
-                />
-              )
+            {renderCoins.map((coin) => {
+              <Carousel
+                onClick={() => {
+                  setModalOpened(true);
+                }}
+                key={coin.id}
+                name={coin.name}
+                image={coin.image}
+                symbol={coin.symbol}
+                priceChange={coin.price_change_percentage_24h}
+              />;
             })}
           </ContainerCarousel>
         </WrapperCarousel>
-      )
+      );
     }
     return (
       <WrapperCarousel>
         <Loader />
       </WrapperCarousel>
-    )
-  }
+    );
+  };
 
   return (
     <Wrapper>
       <Menu>
-        <Logo src={logo} alt='logo' />
+        <Logo src={logo} alt="logo" />
       </Menu>
       {renderCarousel()}
       <ContainerSearch>
@@ -98,7 +101,7 @@ export const Home = () => {
         <Search onChange={handleChange} />
       </ContainerSearch>
       {renderContainerInfo()}
-      {filteredCoins.map(coin => {
+      {filteredCoins.map((coin) => {
         return (
           <Coin
             coin={coin}
@@ -114,12 +117,10 @@ export const Home = () => {
         );
       })}
       <Modal open={modalOpened} onClose={() => setModalOpened(false)}>
-        {renderCoins.map(coin => {
-          return (
-            <p>{coin.name}</p>
-          )
+        {renderCoins.map((coin) => {
+          return <p>{coin.name}</p>;
         })}
       </Modal>
-    </ Wrapper>
+    </Wrapper>
   );
-}
+};
