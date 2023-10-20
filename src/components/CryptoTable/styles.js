@@ -4,25 +4,27 @@ export const TableStyles = styled.div`
   table {
     width: 100%;
     border-collapse: collapse;
+    border-spacing: 0;
 
     th,
     td {
-      margin: 0;
-      padding: 0.5rem;
-      border-bottom: 1px solid #ccc;
-      border-right: 1px solid #ccc;
-
-      :last-child {
-        border-right: none;
-      }
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      text-align: left;
     }
 
     th {
-      background: #f2f2f2;
+      background-color: #333;
+      color: #fff;
     }
 
-    tr:nth-child(even) {
-      background: #f2f2f2;
+    tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    img {
+      max-width: 30px;
+      max-height: 30px;
     }
   }
 `;
