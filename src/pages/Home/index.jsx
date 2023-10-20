@@ -20,7 +20,10 @@ import {
 } from "./styles";
 import { Carousel, Loader, Modal, Coin } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
-import { setCryptos } from "../../redux/actions/cryptoActions";
+import {
+  setSelectedCrypto,
+  setCryptos,
+} from "../../redux/actions/cryptoActions";
 
 export const Home = () => {
   const [search, setSearch] = useState("");
@@ -68,6 +71,7 @@ export const Home = () => {
               <Carousel
                 onClick={() => {
                   setModalOpened(true);
+                  dispatch(setSelectedCrypto(coin));
                 }}
                 key={coin.id}
                 name={coin.name}
@@ -114,9 +118,7 @@ export const Home = () => {
         );
       })}
       <Modal open={modalOpened} onClose={() => setModalOpened(false)}>
-        {cryptos.map((coin) => {
-          return <p>{coin.name}</p>;
-        })}
+        {cryptoSelected && <>{cryptoSelected.name}</>}
       </Modal>
     </Wrapper>
   );

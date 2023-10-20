@@ -7,7 +7,7 @@ export const setCryptos = (cryptos) => {
     }
 }
 
-export const selectedCrypto = (crypto) =>{
+export const setSelectedCrypto = (crypto) =>{
     return {
         type: actionTypes.SELECTED_CRYPTO,
         payload: crypto,

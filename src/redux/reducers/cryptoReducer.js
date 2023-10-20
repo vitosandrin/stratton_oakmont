@@ -10,7 +10,7 @@ export default function reducer(state = initialState, action) {
     case actionTypes.SET_CRYPTO:
       return { ...state, cryptos: action.payload };
     case actionTypes.SELECTED_CRYPTO:
-      return { ...state, criptoSelected: action.payload };
+      return { ...state, cryptoSelected: action.payload };
     default:
       return state;
   }
