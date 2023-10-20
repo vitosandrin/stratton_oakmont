@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
     align-items: center;
     justify-content: center;
-    margin-right: auto;
-    margin-left: auto;
+    display: flex;
+    flex-direction: column;
 
     font-family: ${(props) => props.theme.fonts.regular};
-    overflow-x: hidden;
 `;
 
 export const CoinCard = styled.div`
