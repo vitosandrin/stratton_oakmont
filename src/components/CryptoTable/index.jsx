@@ -23,9 +23,9 @@ const CryptoTable = ({ data }) => {
               </td>
               <td>{coin.symbol.toUpperCase()}</td>
               <td>{coin.name}</td>
-              <td>U$ {coin.current_price}</td>
-              <td>{coin.market_cap.toFixed()}</td>
-              <td>{coin.total_volume}</td>
+              <td>{coin.current_price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+              <td>{coin.market_cap.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+              <td>{coin.total_volume.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
               <td>{coin.price_change_percentage_24h.toFixed(2)}%</td>
             </tr>
           ))}
